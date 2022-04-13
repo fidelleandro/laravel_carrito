@@ -59,10 +59,10 @@ class ProductoController extends Controller
             if (trim($input['producto_id']) != '') {
                 $ver_producto = ProductoModel::find($input['producto_id']);   
             }
-
+            //Variable que me permite reemplazar un archivo
             $replace_file = $ver_producto == NULL ? '' : 'replace';
             $req_file = $ver_producto == NULL ? true : false; 
-            $respfile = $this->UploadFile($request,'foto','jpg,png,mp4','3 MB',$req_file,$replace_file);
+            $respfile = $this->UploadFile($request,'foto','jpg,pnG,mp4','3Mb',$req_file,$replace_file);
             
             if ($respfile['status'] == false) {
                 throw new \Exception($respfile['message']);
