@@ -23,7 +23,12 @@ function save_product(THIS){
          success:function(data){ //El success retorna la información del controlador - Producto controller
             if (data.status) { //Este if significa si es correcto o existe algun valor
                 toastr.success(data.message, 'Mensaje exitoso', {timeOut: 5000}) 
-                setTimeout(function(){ modal.modal('hide');location.reload(); }, 2000); 
+                setTimeout(function(){ 
+                    //Ocultar modal
+                    modal.modal('hide');
+                    //recargar pagina
+                    location.reload(); 
+                }, 2000); 
             }
              else{
                 toastr.error(data.message, 'Mensaje de error', {timeOut: 5000})
@@ -32,7 +37,9 @@ function save_product(THIS){
       });
 }
 function imageChange(THIS,e){
+    //Captura la imagen con pixeles y lo asigna al atributo src
     src = URL.createObjectURL(e.target.files[0]);
+    //Buscamos la etiqueta img con la clase .img_photo y le asignamos el valor de la imagen al atributo src.
     modal.find("form .img_photo").attr('src',src);
 }
 function add_producto(THIS){
@@ -40,6 +47,7 @@ function add_producto(THIS){
 }
 function edit_producto(THIS,url){
     form = modal.find('form');
+    //Parent sirve para ir hacia de etiqueta en etiqueta. Find es para buscar. First es el primer elemento html
     id = $(THIS).parent().parent().find('td').first().attr('data-id');
     form.find('.producto').val(id);
     
@@ -76,10 +84,10 @@ function eliminar(THIS,url){
       .then((willDelete) => {
         if (willDelete) {
             $.ajax({
-                type:'GET',
+                type:     'GET',
                 dataType: 'json',
-                url:url,
-                data: {id:input},
+                url:      url,
+                data:    {id:input},
                 success:function(data){
                     if (data.status) { 
                         swal("Listo! El registro fue eliminado!", {

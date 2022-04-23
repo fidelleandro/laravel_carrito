@@ -32,7 +32,7 @@ class ProductoController extends Controller
               $data['foto'] = $ver_producto->foto; 
               //Enviamos el resultado del array data al array response data
               $response['data'] = $data;
-              $response['status'] = true;
+              $response['status'] = true; // Si hemos llegado hasta aqui, significa que todo es correcto
         } catch (\Exception $e) {
             $response['message'] = $e->getMessage();
         }
