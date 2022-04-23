@@ -2,23 +2,26 @@ $('.reporte_productos').dataTable();
 modal = $('#crearProductoModal');
 
 function save_product(THIS){    
+    //La información se envia de forma segura con el token de laravel
      $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': $('input[name="_token"]').val()
           }
       }); 
-      form  = modal.find("form");
+      //Buscamos el formulario con find y lo asignamos a la variable form
+      form  = modal.find("form"); //Buscamos la etiqueta html form.
+      //Con FormData(form[0]) capturamos todos los elementos del formulario
       var formData = new FormData(form[0]); 
-       
+      //El ajax permite enviar la información a la ruta definida em action y evita la recarga de la página 
       $.ajax({
-         type:'POST',
-         dataType: 'json',
-         processData: false,
-         contentType:  false,
-         url:form.attr('action'),
-         data: formData,
-         success:function(data){
-            if (data.status) { 
+         type:        'POST', //Seleccionamos el tipo de request, en este caso POST
+         dataType:    'json', //Especificamos como recibimos los datos. En este caso del tipo JSON
+         processData:  false, // sin procesar data
+         contentType:  false, // tipo de contenido en falso
+         url:          form.attr('action'),//aqui mandamos la ruta del formulario usando la funcion attr (Esta funcion sirve para capturar los atributos de las etiquetas html) 
+         data:         formData, //Aqui se envia los datos del formulario con la variable formData
+         success:function(data){ //El success retorna la información del controlador - Producto controller
+            if (data.status) { //Este if significa si es correcto o existe algun valor
                 toastr.success(data.message, 'Mensaje exitoso', {timeOut: 5000}) 
                 setTimeout(function(){ modal.modal('hide');location.reload(); }, 2000); 
             }
