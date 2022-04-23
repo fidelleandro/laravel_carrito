@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 Route::get('/gestion-de-productos',[\App\Http\Controllers\ProductoController::class,'index'], function ($id) {
 });
-Route::post('/guardar-producto',[\App\Http\Controllers\ProductoController::class,'save'])->name('save_product');
+Route::post('/guardar-producto-1000',[\App\Http\Controllers\ProductoController::class,'save'])->name('save_product');
 Route::get('/ver-producto',[\App\Http\Controllers\ProductoController::class,'ver'])->name('ver_producto');
 Route::get('/eliminar-producto',[\App\Http\Controllers\ProductoController::class,'delete'])->name('eliminar_producto');
 Route::resource('/categorias', \App\Http\Controllers\CategoriaController::class)->middleware('auth');
