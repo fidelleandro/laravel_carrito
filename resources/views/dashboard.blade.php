@@ -1,7 +1,5 @@
-@extends('layouts.aministracion')
+@extends('layouts.administracion')
 @section('contenido_admin')
-    
-@endsection
 <!-- Small boxes (Stat box) -->
 <div class="row">
     <div class="col-lg-3 col-6">

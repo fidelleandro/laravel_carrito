@@ -32,7 +32,8 @@
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake" src="{{asset('img')}}/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    <div class="animation__shake">Cargando dashboard</div>
   </div>
 
   <!-- Navbar cabecera-->
@@ -40,7 +41,7 @@
   <!-- Navbar --> 
 
   <!-- Main Sidebar Container -->
-  @include('layouts.admin.admin_navegacion')
+  @include('layouts.admin.admin_sidebar')
   <!-- Main Sidebar Container -->
 
   <!-- Content Wrapper. Contains page content -->

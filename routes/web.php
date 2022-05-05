@@ -23,8 +23,9 @@ Route::get('/ver-producto',[\App\Http\Controllers\ProductoController::class,'ver
 Route::get('/eliminar-producto',[\App\Http\Controllers\ProductoController::class,'delete'])->name('eliminar_producto');
 Route::resource('/categorias', \App\Http\Controllers\CategoriaController::class)->middleware('auth');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
+/************************Rutas de la administracion*************** */
+Route::get('/dashboard', function () {return view('dashboard');})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard/{any}',[\App\Http\Controllers\AdminController::class,'dashboard'])->where('any','.*')->middleware('auth')->name('priv_admin');
+Route::post('/dashboard/save-admin',[\App\Http\Controllers\AdminController::class,'post'])->middleware('auth')->name('post_admin');
+/*********************************************************************************************/
 require __DIR__.'/auth.php';

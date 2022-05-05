@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -31,7 +32,17 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
+        $user = new User();//cargamos el modelo user
+        /*******CARGAMOS LOS PRIVILEGIOS********/
+        $auth = \Auth()->user();
+        $menu_priv = Helper::$user->getUserPrivileges($auth->rol_id,$auth->id);
+        
+        $data['id'] = $auth->id;
+        $data['name'] = $auth->name;
+        $data['email'] = $auth->email;
+        $data['rol_id'] = $auth->rol_id;
+        $data['menu_priv'] = $menu_priv;
+        session(['user_data' => $data]); 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
