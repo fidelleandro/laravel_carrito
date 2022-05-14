@@ -16,11 +16,34 @@ class Helper {
             }
         }
         return $build;
-    }
-    public function objectToArray($object){
-        if (is_object($object) || is_array($object)) {
-          
+    } 
+    public static function buildTreeHtml(array $lista,$parent_id = 0){
+        $html= '';
+        foreach ($lista as $key => $item) {
+            if ($parent_id == 0) {
+                $html.= '<li class="nav-item">';
+                $html.=   '<a href="" class="">';
+                $html.=     '<i></i>';
+                $html.=     '<p>'.$item["label"].'</p>';
+                $html.=   '</a>';
+                if (0 < $item['Count']) {//si el privilegio padre tiene hijos, hacer
+                    $html.= '<a>';
+                    $html.= '</a>';
+                }
+            }
         }
-
+        return $html;
+    }
+    public static function objectToArray($object){
+        if (is_object($object) || is_array($object)) {
+            $data = (array)$object;//conversion forzada de objecto a array
+            foreach ($data as $key => $item) {
+                $item = Helper::objectToArray($item);
+            }
+            return $data;
+        }
+        else{
+            return $object;
+        }
     } 
 }
