@@ -42,24 +42,35 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     public function getUserPrivileges($id_rol,$id_user){
-       $sql = 'SELECT p.id as id
-                      p.label,
-                      p.parent,
-                      p.url,
-                      p.icon,
-                      Deriv.Count
-               FROM 
-               privilegio p
-               LEFT OUTER JOIN(
-                   SELECT parent,
-                          COUNT(*) AS Count
-                   FROM privilegio
-                   GROUP BY parent         
-               )               
-               inner join users u ON
-               inner join rol r ON
-               inner join rol_priv   
-       ';
-       return DB::select(DB::raw($sql)); 
+        $rows = DB::select(DB::raw("SELECT  p.id as id,
+                p.label,
+                p.parent,
+                p.url,
+                p.icon,
+                p.is_visible visible,
+                Deriv1.Count
+            FROM
+            privilegio p
+            LEFT OUTER JOIN (SELECT parent,
+                                    COUNT(*) AS Count
+                            FROM privilegio
+                            GROUP BY parent
+                            ) Deriv1 ON
+            p.id = Deriv1.parent
+            inner join users u2 on
+            u2.id = $id_user 
+            inner join rol r on
+            r.id = $id_rol
+            inner join rol_priv rp on
+            rp.rol_id = r.id AND
+            rp.privilegio_id = p.id AND 
+            rp.status = 1 
+            LEFT join dashboardmenu_priv dp ON dp.privilegio_id = p.id
+            LEFT join user_priv up on
+            up.user_id = u2.id AND 
+            up.privilegio_id = p.id
+            WHERE p.status = '1'"));
+            
+        return $rows;    
     }
 }

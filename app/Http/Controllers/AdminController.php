@@ -26,7 +26,10 @@ class AdminController extends Controller
         if (count($privilegio)) {
             session()->put('current_page',$page);
             $ruta_privilegio = $this->getRouteAdmin();// Obtener la ruta del controlador o controladores de los privilegios
-            return app($ruta_privilegio.$privilegio['controller'])->$method();
+            $method = $privilegio['method'];
+            return app($ruta_privilegio.$privilegio['controller'])->$method(); //cargar otro controlador con su metodo
+            //return App\Http\Controllers\Privilegios\UserController->index();
+            // UserController()->index();
         }
         else{
             return view('dashboard.404');
