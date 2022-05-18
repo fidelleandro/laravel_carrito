@@ -42,7 +42,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     public function getUserPrivileges($id_rol,$id_user){
-        $rows = DB::select(DB::raw("SELECT  p.id as id,
+        $rows = \DB::select(DB::raw("SELECT  p.id as id,
                 p.label,
                 p.parent,
                 p.url,
@@ -64,8 +64,7 @@ class User extends Authenticatable
             inner join rol_priv rp on
             rp.rol_id = r.id AND
             rp.privilegio_id = p.id AND 
-            rp.status = 1 
-            LEFT join dashboardmenu_priv dp ON dp.privilegio_id = p.id
+            rp.status = 1  
             LEFT join user_priv up on
             up.user_id = u2.id AND 
             up.privilegio_id = p.id
