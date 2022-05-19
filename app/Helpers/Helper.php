@@ -20,16 +20,27 @@ class Helper {
     public static function buildTreeHtml(array $lista,$parent_id = 0){
         $html= '';
         foreach ($lista as $key => $item) {
-            if ($parent_id == 0) {
-                $html.= '<li class="nav-item">';
-                $html.=   '<a href="" class="">';
-                $html.=     '<i></i>';
-                $html.=     '<p>'.$item["label"].'</p>';
-                $html.=   '</a>';
+            if ($parent_id == 0) { 
                 if (0 < $item['Count']) {//si el privilegio padre tiene hijos, hacer
-                    $html.= '<a>';
-                    $html.= '</a>';
+                    $html.= '<li class="nav-item">';
+                    $html.=   '<a href="" class="">'; 
+                    $html.=     '<i class="nav-icon fas fa-search"></i>';
+                    $html.=     '<p>'.$item["label"].'<i class="fas fa-angle-left right"></i></p>';
+                    $html.=   '</a>';
+                    $html.=   '<ul class="nav nav-treeview">';
                 }
+                else{
+                    $html.= '<li class="nav-item">';
+                    $html.=   '<a href="" class="">'; 
+                    $html.=     '<i class="nav-icon fas fa-search"></i>';
+                    $html.=     '<p>'.$item["label"].'</p>';
+                    $html.=   '</a>';
+                }
+            }
+            if (isset($item["children"])) {
+                $html.= Helper::buildTreeHtml($item["children"],$item["id"]);
+                $html.= '</ul>';
+                $html.= '</li>';
             }
         }
         return $html;

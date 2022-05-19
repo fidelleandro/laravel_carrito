@@ -13,7 +13,9 @@ class AdminController extends Controller
             $datos = $request->session()->all();//cargamos todas las sessiones 
             if(isset($datos['user_data']))  {//existe la session user_data?
                 $menu_priv = Helper::buildTree($datos['user_data']['menu_priv']); 
-                dump($menu_priv); exit;
+                $menu_priv_html =Helper::buildTreeHtml($menu_priv);
+                View::share('menu_priv_html', $menu_priv_html);
+                //dump($menu_priv); exit;
             }   
             return $next($request);
         });
