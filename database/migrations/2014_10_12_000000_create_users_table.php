@@ -23,7 +23,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('rol_id')
-                           ->reference('id')
+                           ->references('id')
                            ->on('rol')
                            ->onCascade('delete');
         });

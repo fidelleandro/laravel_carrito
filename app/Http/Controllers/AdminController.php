@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Models\PrivilegioModel;
+use App\Helpers\helper;
 
 class AdminController extends Controller
 {
-    public function __construct(){
+    public function __construct(){  
         $this->middleware('auth');//inicio de autenticación
         $this->middleware(function ($request,$next){
             $datos = $request->session()->all();//cargamos todas las sessiones 
+            
             if(isset($datos['user_data']))  {//existe la session user_data?
                 $menu_priv = Helper::buildTree($datos['user_data']['menu_priv']); 
-                $menu_priv_html =Helper::buildTreeHtml($menu_priv);
+                $menu_priv_html = Helper::buildTreeHtml($menu_priv);
+                //dump($menu_priv_html); exit;
                 View::share('menu_priv_html', $menu_priv_html);
-                //dump($menu_priv); exit;
+                
             }   
             return $next($request);
         });
