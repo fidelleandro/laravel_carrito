@@ -6,8 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-Use DB;
+use Laravel\Sanctum\HasApiTokens;  
 
 class User extends Authenticatable
 {
@@ -44,7 +43,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     public function getUserPrivileges($id_rol,$id_user){
-        $rows = \DB::select(DB::raw("SELECT  p.id as id,
+        $rows = \DB::select(\DB::raw("SELECT  p.id as id,
                 p.label,
                 p.parent,
                 p.url,
