@@ -36,6 +36,7 @@ class AuthenticatedSessionController extends Controller
         $user = new User();//cargamos el modelo user
         /*******CARGAMOS EL MENU DE LOS PRIVILEGIOS********/
         $auth = \Auth()->user();
+        //echo 'ROL_ID:'.$auth->rol_id.' ID_USER:'.$auth->id; exit;
         $menu_priv = Helper::objectToArray($user->getUserPrivileges($auth->rol_id,$auth->id));
         
         $data['id']         = $auth->id;
