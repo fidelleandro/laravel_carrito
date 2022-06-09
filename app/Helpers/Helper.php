@@ -18,10 +18,11 @@ class Helper {
         return $build;
     } 
     
-    public static function buildTreeHtml(array $lista,$parent_id = 0){
-        $html= '';
-        foreach ($lista as $key => $item) {
-            if ($parent_id == 0) { 
+    public static function buildTreeHtml(&$html,array $lista,$parent_id = 0){
+        //$html= '';
+        foreach ($lista as $key => $item) { 
+            //******************BLOQUE 1 - IF************** */
+            if ($parent_id == 0) { // Si es superior
                 if (0 < $item['Count']) {//si el privilegio padre tiene hijos, hacer
                     $html.= '<li class="nav-item">';
                     $html.=   '<a href="" class="">'; 
@@ -30,21 +31,33 @@ class Helper {
                     $html.=   '</a>';
                     $html.=   '<ul class="nav nav-treeview">';
                 }
-                else{
+                else{ //El menu superior no tiene hijos
                     $html.= '<li class="nav-item">';
                     $html.=   '<a href="" class="">'; 
                     $html.=     '<i class="nav-icon fas fa-search"></i>';
                     $html.=     '<p>'.$item["label"].'</p>';
                     $html.=   '</a>';
+                    $html.= '</li>';
                 }
             }
-            if (isset($item["children"])) {
-                $html.= Helper::buildTreeHtml($item["children"],$item["id"]);
+            else{
+                    $html.= '<li class="nav-item">';
+                    $html.=   '<a href="" class="">'; 
+                    $html.=     '<i class="nav-icon fas fa-search"></i>';
+                    $html.=     '<p>'.$item["label"].'</p>';
+                    $html.=   '</a>';
+                    $html.= '</li>';
+            }
+            //*****************FIN BLOQUE 1 IF*************** */
+            //****************BLOQUE 2 IF**************** */
+            if (isset($item["children"])) {//EL ELEMENTO TIENE HIJOS???
+                $html.= Helper::buildTreeHtml($html,$item["children"],$item["id"]);
                 $html.= '</ul>';
                 $html.= '</li>';
             }
+            //******************************** */
         }
-        return $html;
+        //return $html;
     }
     public static function objectToArray($object){
         if (is_object($object) || is_array($object)) {
