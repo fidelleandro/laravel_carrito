@@ -17,6 +17,7 @@ class Helper {
         }
         return $build;
     } 
+    
     public static function buildTreeHtml(array $lista,$parent_id = 0){
         $html= '';
         foreach ($lista as $key => $item) {
@@ -48,7 +49,7 @@ class Helper {
     public static function objectToArray($object){
         if (is_object($object) || is_array($object)) {
             $data = (array)$object;//conversion forzada de objecto a array
-            foreach ($data as $key => $item) {
+            foreach ($data as $key => &$item) {
                 $item = Helper::objectToArray($item);
             }
             return $data;
