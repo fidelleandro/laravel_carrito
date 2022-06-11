@@ -25,25 +25,28 @@ class Helper {
             if ($parent_id == 0) { // Si es superior
                 if (0 < $item['Count']) {//si el privilegio padre tiene hijos, hacer
                     $html.= '<li class="nav-item">';
-                    $html.=   '<a href="" class="">'; 
-                    $html.=     '<i class="nav-icon fas fa-search"></i>';
+                    $html.=   '<a href="" class="nav-link">';
+                    $icono = $item['icon'] == '' ? 'nav-icon fas fa-search' : $item['icon'];
+                    $html.=     '<i class="'.$icono.'"></i>';
                     $html.=     '<p>'.$item["label"].'<i class="fas fa-angle-left right"></i></p>';
                     $html.=   '</a>';
                     $html.=   '<ul class="nav nav-treeview">';
                 }
                 else{ //El menu superior no tiene hijos
                     $html.= '<li class="nav-item">';
-                    $html.=   '<a href="" class="">'; 
-                    $html.=     '<i class="nav-icon fas fa-search"></i>';
+                    $html.=   '<a href="" class="nav-link">'; 
+                    $icono = $item['icon'] == '' ? 'nav-icon fas fa-search' : $item['icon'];
+                    $html.=     '<i class="'.$icono.'" style=""></i>';
                     $html.=     '<p>'.$item["label"].'</p>';
                     $html.=   '</a>';
                     $html.= '</li>';
                 }
             }
             else{
+                    $icono = $item['icon'] == '' ? 'nav-icon fas fa-search' : $item['icon'];
                     $html.= '<li class="nav-item">';
-                    $html.=   '<a href="" class="">'; 
-                    $html.=     '<i class="nav-icon fas fa-search"></i>';
+                    $html.=   '<a href="" class="nav-link">'; 
+                    $html.=     '<i class="'.$icono.'"></i>';
                     $html.=     '<p>'.$item["label"].'</p>';
                     $html.=   '</a>';
                     $html.= '</li>';
